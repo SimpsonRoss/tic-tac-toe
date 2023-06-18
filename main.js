@@ -51,13 +51,6 @@ function boardClick(evt) {
 }
 
 
-
-
-
-
-
-
-
 function getWinner(colIdx, rowIdx) {
   // Get the player
   const player = board[colIdx][rowIdx];
@@ -127,7 +120,7 @@ function renderMessage() {
     messageEl.innerHTML = `${PLAYERS[winner]} Wins!`;
   } else {
     // Game is in play
-    messageEl.innerHTML = `<strong>${PLAYERS[turn]}'s</strong> Turn`;
+    messageEl.innerHTML = `${PLAYERS[turn]}'s Turn`;
   }
 };
 
