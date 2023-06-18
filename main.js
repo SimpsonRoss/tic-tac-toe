@@ -13,7 +13,7 @@ let winLine;
 
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h1');
-const playAgainBtn = document.querySelector('button');
+const playAgainBtn = document.querySelector('#playAgain');
 
 /*----- event listeners -----*/
 document.getElementById('board').addEventListener('click', boardClick);
@@ -134,7 +134,17 @@ function renderMessage() {
 };
 
 function renderControls() {
-  playAgainBtn.style.visibility = winner ? 'visible' : 'hidden';
+  const boardEl = document.getElementById('board');
+
+  if (board.flat().every(cell => cell === 0)) {
+    playAgainBtn.style.visibility = 'hidden';
+    boardEl.classList.remove('noHover');
+  } else {
+    playAgainBtn.style.visibility = 'visible';
+    if (winner) boardEl.classList.add('noHover');
+  }
+
+  playAgainBtn.innerText = winner ? 'PLAY AGAIN' : 'RESET GAME';
 };
 
 function renderWinningLine() {
