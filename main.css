@@ -69,13 +69,12 @@ h1 {
 }
 
 #playAgain {
-  margin-top: 1vmin;
+  margin-top: 2vmin;
   padding: 2vmin;
   font-size: 2vmin;
   border-radius: 4vmin;
   border: 0.1vmin solid grey;
   color: grey;
-
 }
 
 #playAgain:hover {
@@ -84,7 +83,7 @@ h1 {
 }
 
 #enterNames {
-  margin-top: 4vmin;
+  margin-top: 1.5vmin;
   padding: 2vmin;
   font-size: 2vmin;
   border-radius: 4vmin;
@@ -120,6 +119,8 @@ input {
   padding: .5vmin 1.5vmin;
   margin: 1.5vmin auto;
   text-align: center;
+  height: 4vmin;
+  font-size: 2vmin;
 }
 
 #board>div>p {
@@ -136,6 +137,7 @@ dialog {
   font-size: 4vmin;
   border-radius: 8vmin;
   border: 0.1vmin solid grey;
+  margin: 20vmin auto;
 }
 
 dialog h1 {

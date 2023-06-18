@@ -10,19 +10,42 @@ let board; // array of 3 column arrays
 let turn; // 1 or -1 
 let winner; // null = no winner; 1 or -1 winner; 'T' = tie game
 let winLine;
+let player1 = 'Player 1';
+let player2 = 'Player 2';
+
 
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h1');
 const playAgainBtn = document.querySelector('#playAgain');
+const enterNamesBtn = document.querySelector('#enterNames');
+const player1Input = document.getElementById('player1');
+const player2Input = document.getElementById('player2');
+const submitNamesBtn = document.getElementById('submitNames');
+const playerNamesDialog = document.getElementById('playerNames');
+const boardEl = document.getElementById('board');
 
 /*----- event listeners -----*/
 document.getElementById('board').addEventListener('click', boardClick);
-playAgainBtn.addEventListener('click', init);
+playAgainBtn.addEventListener('click', resetGame);
+submitNamesBtn.addEventListener('click', setPlayerNames);
 
 /*----- functions -----*/
 init();
 
 function init() {
+  board = [
+    [0, 0, 0], //col 0
+    [0, 0, 0], //col 1
+    [0, 0, 0], //col 2
+  ];
+  playerNamesDialog.show();
+  winLine = [];
+  turn = 1;
+  winner = null;
+  render();
+}
+
+function resetGame() {
   board = [
     [0, 0, 0], //col 0
     [0, 0, 0], //col 1
@@ -34,13 +57,28 @@ function init() {
   render();
 }
 
+function setPlayerNames() {
+  player1 = player1Input.value || 'Player 1';
+  player2 = player2Input.value || 'Player 2';
+
+  //reset the input values
+  player1Input.value = '';
+  player2Input.value = '';
+
+  //restart the game, since name's have changed
+  init()
+  // Hide the input dialog
+  playerNamesDialog.close();
+  render()
+}
+
 function boardClick(evt) {
   // Guards...
   // Returns without procesing, if someone has won already or it's a tie
   if (winner !== null) {
     return;
   }
-  // Returns if the user clicks on something that isn't one of our 9 divs (i.e. the playable board)
+  // Returns if the user clicks on something that isn't one of our 9 divs (i.e. the playableboard)
   if (!evt.target.id.startsWith('c')) {
     return;
   }
@@ -112,10 +150,12 @@ function getWinner(colIdx, rowIdx) {
 }
 
 function render() {
-  renderBoard();
-  renderMessage();
-  renderControls();
-  renderWinningLine()
+  if (playerNamesDialog.open === false) {
+    renderBoard();
+    renderMessage();
+    renderControls();
+    renderWinningLine()
+  }
 }
 
 function renderBoard() {
@@ -132,10 +172,10 @@ function renderMessage() {
   if (winner === 'T') {
     messageEl.innerText = "It's a Tie!";
   } else if (winner) {
-    messageEl.innerHTML = `${PLAYERS[winner]} Wins!`;
+    messageEl.innerHTML = `${PLAYERS[winner] === 'X' ? player1 : player2} Wins!`;
   } else {
     // Game is in play
-    messageEl.innerHTML = `${PLAYERS[turn]}'s Turn`;
+    messageEl.innerHTML = `${turn === 1 ? player1 : player2}'s Turn`;
   }
 };
 
@@ -144,9 +184,11 @@ function renderControls() {
 
   if (board.flat().every(cell => cell === 0)) {
     playAgainBtn.style.visibility = 'hidden';
+    enterNamesBtn.style.visibility = 'hidden';
     boardEl.classList.remove('noHover');
   } else {
     playAgainBtn.style.visibility = 'visible';
+    enterNamesBtn.style.visibility = 'visible';
     if (winner) boardEl.classList.add('noHover');
   }
 
