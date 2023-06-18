@@ -1,0 +1,61 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  /* viewport units: vh (viewport height), vw (viewport width), vmin (smallest between vh & vw) */
+  height: 100vh;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+header {
+  font-size: 4vmin;
+  color: darkgray;
+  letter-spacing: 1vmin;
+}
+
+h1 {
+  color: gray;
+  font-size: 3vmin;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(3, 20vmin);
+  grid-template-rows: repeat(3, 20vmin);
+  gap: 1vmin;
+  margin-top: 1vmin;
+  margin-bottom: 2vmin;
+}
+
+#board>div {
+  border-radius: 0%;
+  border: 0.1vmin solid grey;
+}
+
+button {
+  margin-top: 4vmin;
+  padding: 2vmin;
+  font-size: 2vmin;
+  border-radius: 4vmin;
+  border: 0.1vmin solid grey;
+  color: grey;
+}
+
+button:hover {
+  color: white;
+  background-color: darkgray;
+}
+
+#board>div>p {
+  text-align: center;
+  font-size: 13vmin;
+  font-weight: bold;
+  margin: 1vmin 0vmin;
+}
