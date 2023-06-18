@@ -32,11 +32,36 @@ h1 {
   gap: 1vmin;
   margin-top: 1vmin;
   margin-bottom: 2vmin;
+  background-color: lightgray;
 }
 
 #board>div {
-  border-radius: 0%;
-  border: 0.1vmin solid grey;
+  background-color: white;
+}
+
+#board>div:hover {
+  background-color: rgba(249, 247, 247, 0.913);
+}
+
+@keyframes highlight {
+  0% {
+    background-color: white;
+  }
+
+  50% {
+    background-color: rgba(243, 239, 239, 0.464);
+  }
+
+  100% {
+    background-color: white;
+  }
+}
+
+.winningLine {
+  animation-name: highlight;
+  animation-duration: 1s;
+  animation-iteration-count: 1;
+  color: green !important;
 }
 
 button {
@@ -54,6 +79,7 @@ button:hover {
 }
 
 #board>div>p {
+  color: grey;
   text-align: center;
   font-size: 13vmin;
   font-weight: bold;
