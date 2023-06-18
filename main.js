@@ -35,10 +35,16 @@ function init() {
 }
 
 function boardClick(evt) {
-
+  // Guards...
+  // Returns without procesing, if someone has won already or it's a tie
   if (winner !== null) {
     return;
   }
+  // Returns if the user clicks on something that isn't one of our 9 divs (i.e. the playable board)
+  if (!evt.target.id.startsWith('c')) {
+    return;
+  }
+
   // Split the id string of the div to get the index
   const idOfSquare = evt.target.id.split('c')[1].split('r');
   const colIdx = parseInt(idOfSquare[0]);

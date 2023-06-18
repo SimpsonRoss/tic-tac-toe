@@ -75,6 +75,7 @@ h1 {
   border-radius: 4vmin;
   border: 0.1vmin solid grey;
   color: grey;
+
 }
 
 #playAgain:hover {
@@ -103,11 +104,22 @@ h1 {
   border-radius: 4vmin;
   border: 0.1vmin solid grey;
   color: grey;
+  display: inline-block;
+  margin: 1vmin 0 2vmin 0;
 }
 
 #submitNames:hover {
   color: white;
   background-color: darkgray;
+}
+
+input {
+  display: block;
+  border-radius: 1.5vmin;
+  border: 0.1vmin solid grey;
+  padding: .5vmin 1.5vmin;
+  margin: 1.5vmin auto;
+  text-align: center;
 }
 
 #board>div>p {
@@ -116,6 +128,18 @@ h1 {
   font-size: 13vmin;
   font-weight: bold;
   margin: 1vmin 0vmin;
+}
+
+dialog {
+  text-align: center;
+  padding: 1vmin 6vmin;
+  font-size: 4vmin;
+  border-radius: 8vmin;
+  border: 0.1vmin solid grey;
+}
+
+dialog h1 {
+  font-size: 4vmin;
 }
 
 dialog::backdrop {}
