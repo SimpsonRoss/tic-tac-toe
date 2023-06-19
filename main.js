@@ -9,10 +9,12 @@ const PLAYERS = {
 let board; // array of 3 column arrays
 let turn; // 1 or -1 
 let winner; // null = no winner; 1 or -1 winner; 'T' = tie game
-let winLine;
-let player1 = 'Player 1';
-let player2 = 'Player 2';
-
+let winLine; // the winning line we store to highlight green
+let player1 = 'Player 1'; //name variables
+let player2 = 'Player 2'; //name variables
+let player1Score = 0;
+let player2Score = 0;
+let resetCount = 0; //for counting all games, before a reset
 
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h1');
@@ -23,9 +25,10 @@ const player2Input = document.getElementById('player2');
 const submitNamesBtn = document.getElementById('submitNames');
 const playerNamesDialog = document.getElementById('playerNames');
 const boardEl = document.getElementById('board');
+const scoreBoard = document.getElementById('scoreBoard');
 
 /*----- event listeners -----*/
-document.getElementById('board').addEventListener('click', boardClick);
+boardEl.addEventListener('click', boardClick);
 playAgainBtn.addEventListener('click', resetGame);
 submitNamesBtn.addEventListener('click', setPlayerNames);
 
@@ -42,6 +45,9 @@ function init() {
   winLine = [];
   turn = 1;
   winner = null;
+  resetCount = 0;
+  player1Score = 0;
+  player2Score = 0
   render();
 }
 
@@ -52,12 +58,19 @@ function resetGame() {
     [0, 0, 0], //col 2
   ];
   winLine = [];
-  turn = 1;
+  //Changes who's turn it is, each time the game is reset
+  resetCount++;
+  if (resetCount % 2 == 0) {
+    turn = 1;
+  } else {
+    turn = -1;
+  }
   winner = null;
   render();
 }
 
 function setPlayerNames() {
+  //set the player variables to the inputted names OR the defaults if needed
   player1 = player1Input.value || 'Player 1';
   player2 = player2Input.value || 'Player 2';
 
@@ -65,20 +78,22 @@ function setPlayerNames() {
   player1Input.value = '';
   player2Input.value = '';
 
-  //restart the game, since name's have changed
+  //re-initialise the game, since the name's have changed and players are updated
   init()
+
   // Hide the input dialog
   playerNamesDialog.close();
+
   render()
 }
 
 function boardClick(evt) {
-  // Guards...
-  // Returns without procesing, if someone has won already or it's a tie
+  // Guards:
+  // returns without procesing, if someone has won already or it's a tie
   if (winner !== null) {
     return;
   }
-  // Returns if the user clicks on something that isn't one of our 9 divs (i.e. the playableboard)
+  // returns if the user clicks on something that isn't one of our 9 divs (a.k.a. the playable board)
   if (!evt.target.id.startsWith('c')) {
     return;
   }
@@ -88,8 +103,7 @@ function boardClick(evt) {
   const colIdx = parseInt(idOfSquare[0]);
   const rowIdx = parseInt(idOfSquare[1]);
 
-  //console.log(`col ${colIdx} row ${rowIdx}`);
-  //assigning the turn value to that square
+  //assigning the turn value to that square of the board
   board[colIdx][rowIdx] = turn;
 
   // Switch player turn
@@ -102,7 +116,6 @@ function boardClick(evt) {
 function getWinner(colIdx, rowIdx) {
   // Get the player
   const player = board[colIdx][rowIdx];
-  console.log(player);
 
   // Check the current row for a winning line
   if (
@@ -150,12 +163,10 @@ function getWinner(colIdx, rowIdx) {
 }
 
 function render() {
-  if (playerNamesDialog.open === false) {
-    renderBoard();
-    renderMessage();
-    renderControls();
-    renderWinningLine()
-  }
+  renderBoard();
+  renderMessage();
+  renderControls();
+  renderWinningLine()
 }
 
 function renderBoard() {
@@ -169,13 +180,22 @@ function renderBoard() {
 }
 
 function renderMessage() {
+  // if it's a draw
   if (winner === 'T') {
     messageEl.innerText = "It's a Tie!";
+    // else if there's a winner
   } else if (winner) {
     messageEl.innerHTML = `${PLAYERS[winner] === 'X' ? player1 : player2} Wins!`;
+    if (PLAYERS[winner] === 'X') {
+      player1Score++
+    } else {
+      player2Score++
+    };
+    scoreBoard.innerHTML = `<strong>SCORES: ${player1}: ${player1Score} | ${player2}: ${player2Score}</strong>`;
+    //else, the game is in play
   } else {
-    // Game is in play
     messageEl.innerHTML = `${turn === 1 ? player1 : player2}'s Turn`;
+    scoreBoard.innerHTML = `<strong>SCORES: ${player1}: ${player1Score} | ${player2}: ${player2Score}</strong>`;
   }
 };
 
@@ -185,22 +205,23 @@ function renderControls() {
   if (board.flat().every(cell => cell === 0)) {
     playAgainBtn.style.visibility = 'hidden';
     enterNamesBtn.style.visibility = 'hidden';
-    boardEl.classList.remove('noHover');
+    //boardEl.classList.remove('noHover');
   } else {
     playAgainBtn.style.visibility = 'visible';
     enterNamesBtn.style.visibility = 'visible';
-    if (winner) boardEl.classList.add('noHover');
+    //if (winner) boardEl.classList.add('noHover');
   }
-
+  //changes the message on the button so that it's relevant
   playAgainBtn.innerText = winner ? 'PLAY AGAIN' : 'RESET GAME';
 };
 
 function renderWinningLine() {
   const wholeBoard = ["c0r2", "c1r2", "c2r2", "c0r1", "c1r1", "c2r1", "c0r0", "c1r0", "c2r0"];
+  // removes any winningLine class attributions from previous games
   wholeBoard.forEach((cell) => {
     document.querySelector(`#${cell} > p`).classList.remove('winningLine');
   })
-
+  // if there's a winner, then add the winningLine class to each cell of the winning 3, to add animation and color
   if (winner) {
     winLine.forEach((winningCell) => {
       document.querySelector(`#${winningCell} > p`).classList.add('winningLine');

@@ -5,7 +5,7 @@
 body {
   /* viewport units: vh (viewport height), vw (viewport width), vmin (smallest between vh & vw) */
   height: 100vh;
-  margin: 0;
+  margin: 2vmin;
   font-family: 'Open Sans', sans-serif;
   display: flex;
   flex-direction: column;
@@ -13,9 +13,8 @@ body {
   align-items: center;
 }
 
-
 header {
-  font-size: 4vmin;
+  font-size: 5vmin;
   color: darkgray;
   letter-spacing: 1vmin;
 }
@@ -23,12 +22,13 @@ header {
 h1 {
   color: gray;
   font-size: 3vmin;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #board {
   display: grid;
-  grid-template-columns: repeat(3, 20vmin);
-  grid-template-rows: repeat(3, 20vmin);
+  grid-template-columns: repeat(3, 19vmin);
+  grid-template-rows: repeat(3, 19vmin);
   gap: 1vmin;
   margin-top: 1vmin;
   margin-bottom: 2vmin;
@@ -41,10 +41,6 @@ h1 {
 
 #board>div:hover {
   background-color: rgba(249, 247, 247, 0.913);
-}
-
-#board.noHover>div:hover {
-  background-color: white;
 }
 
 @keyframes highlight {
@@ -69,7 +65,7 @@ h1 {
 }
 
 #playAgain {
-  margin-top: 2vmin;
+  width: 20vmin;
   padding: 2vmin;
   font-size: 2vmin;
   border-radius: 4vmin;
@@ -83,7 +79,7 @@ h1 {
 }
 
 #enterNames {
-  margin-top: 1.5vmin;
+  width: 20vmin;
   padding: 2vmin;
   font-size: 2vmin;
   border-radius: 4vmin;
@@ -97,6 +93,7 @@ h1 {
 }
 
 #submitNames {
+  width: 20vmin;
   margin-top: 4vmin;
   padding: 2vmin;
   font-size: 2vmin;
@@ -126,8 +123,7 @@ input {
 #board>div>p {
   color: grey;
   text-align: center;
-  font-size: 13vmin;
-  font-weight: bold;
+  font-size: 11vmin;
   margin: 1vmin 0vmin;
 }
 
@@ -137,11 +133,15 @@ dialog {
   font-size: 4vmin;
   border-radius: 8vmin;
   border: 0.1vmin solid grey;
-  margin: 20vmin auto;
+  margin: 10vmin auto;
 }
 
 dialog h1 {
   font-size: 4vmin;
 }
 
-dialog::backdrop {}
+#buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 50vmin;
+}

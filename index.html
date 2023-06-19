@@ -4,19 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic-Tac-Toe</title>
+  <title>NOUGHTS v CROSSES</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="main.css" rel="stylesheet" type="text/css" />
   <script defer src="main.js"></script>
 </head>
 
 <body>
-  <header>TIC-TAC-TOE</header>
-  <h1>X's Turn</h1>
+  <header>NOUGHTS v CROSSES</header>
+  <h1>Player 1's Turn</h1>
   <section id="board">
-
     <div id="c0r2">
       <p> </p>
     </div>
@@ -47,20 +46,21 @@
       <p></p>
     </div>
   </section>
+  <p id='scoreBoard'><strong>SCORES:</strong></p>
 
-
-  <button id="playAgain">PLAY AGAIN</button>
+  <div id="buttonContainer">
+    <button id="playAgain">PLAY AGAIN</button>
+    <button id="enterNames" onclick="playerNames.showModal()">ENTER NAMES</button>
+  </div>
 
   <dialog id="playerNames">
     <h1>ENTER PLAYER NAMES</h1>
-    <input class="player" id="player1" placeholder="Player 1"></input>
-    <input class="player" id="player2" placeholder="Player 2"></input>
+    <input class="player" id="player1" placeholder="Player 1" onfocus="this.placeholder = ''"
+      onblur="this.placeholder = 'Player 1'"></input>
+    <input class="player" id="player2" placeholder="Player 2" onfocus="this.placeholder = ''"
+      onblur="this.placeholder = 'Player 2'"></input>
     <button id="submitNames">SUBMIT</button>
   </dialog>
-  <button id="enterNames" onclick="playerNames.showModal()">ENTER NAMES</button>
-
-
-
 
 </body>
 
